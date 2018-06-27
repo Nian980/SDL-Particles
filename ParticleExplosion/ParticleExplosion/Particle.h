@@ -19,11 +19,8 @@ struct Particle {
     double mX;
     double mY;
     
-    double xSpeed; //cartesian coordinate system no longer needed
-    double ySpeed;
-    
-//    double mSpeed; //polar coordinates with magnitude and direction (angle)
-//    double mDirection;
+    double mSpeed; //polar coordinates with magnitude and direction (angle)
+    double mDirection;
     
     Particle();
     ~Particle();

@@ -50,13 +50,6 @@ int main(int argc, const char * argv[]) {
             screen.setPixel(x, y, red, green, blue);
         }
         
-//        for (int y = 0; y < Screen::SCREEN_HEIGHT; y++) {
-//            for (int x = 0; x < Screen::SCREEN_WIDTH; x++) {
-//                screen.setPixel(x, y, red, green, blue);
-//            }
-//        } //changes entire screen color
-
-        
         //Draw the screen
         screen.update();
         
@@ -65,7 +58,6 @@ int main(int argc, const char * argv[]) {
             break;
         }
     }
-    //std::cerr << "Max: " << max << std::endl; //DEBUG, find max
     
     screen.close();
     
