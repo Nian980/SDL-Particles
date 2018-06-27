@@ -11,13 +11,13 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
-using namespace nian;
+using namespace nian; //so don't have to use e.g. nian::Screen
 
 int main(int argc, const char * argv[]) {
     
     srand(time(NULL));
     
-    Screen screen; //i put using namespace nian up there, so don;t have to use nian::Screen
+    Screen screen;
     if (screen.init() == false) {
         std::cout << "Error initialising SDL" << std::endl;
     }
@@ -25,8 +25,7 @@ int main(int argc, const char * argv[]) {
     Swarm swarm;
     
     while (true) {
-        //Update particles
-        //Draw particles
+        //Update and Draw particles
         int elapsedTicks = SDL_GetTicks(); //returns number of milliseconds since the program has started
         
         screen.clear(); //clear the screen buffer, so after every loop the pixel doesn't stay there

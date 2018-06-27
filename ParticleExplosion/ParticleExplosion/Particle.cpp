@@ -22,7 +22,11 @@ namespace nian {
     }
     
     void Particle::update() {
-
+        double xSpeed = mSpeed * cos(mDirection);
+        double ySpeed = mSpeed * sin(mDirection);
+        
+        mX += xSpeed;
+        mY += ySpeed;
     }
     
 }

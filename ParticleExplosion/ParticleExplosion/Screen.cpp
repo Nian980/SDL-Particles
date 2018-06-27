@@ -39,7 +39,7 @@ namespace nian {
             return false;
         }
         
-        
+
         mBuffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT]; //for different systems, c++ int may not be 32 bits
         //each RGBA is 1 byte (8 bits) each, so each Uint32 (32 bits) pixel stores one set of RGBA info. We need 800*600 of these buffers as thats how many pixels in the screen. This buffer is essentially a really long array storing row after row of pixel data together.
         
