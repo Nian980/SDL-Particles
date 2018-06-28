@@ -48,6 +48,8 @@ int main(int argc, const char * argv[]) {
             screen.setPixel(x, y, red, green, blue);
         }
         
+        screen.boxBlur();
+        
         //Draw the screen
         screen.update();
         

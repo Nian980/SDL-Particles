@@ -10,7 +10,7 @@
 
 namespace nian {
     
-    Screen::Screen() : mWindow(NULL), mRenderer(NULL), mTexture(NULL), mBuffer(NULL)
+    Screen::Screen() : mWindow(NULL), mRenderer(NULL), mTexture(NULL), mBuffer1(NULL), mBuffer2(NULL)
     {
     }
     
@@ -40,23 +40,20 @@ namespace nian {
         }
         
 
-        mBuffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT]; //for different systems, c++ int may not be 32 bits
+        mBuffer1 = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT]; //for different systems, c++ int may not be 32 bits
         //each RGBA is 1 byte (8 bits) each, so each Uint32 (32 bits) pixel stores one set of RGBA info. We need 800*600 of these buffers as thats how many pixels in the screen. This buffer is essentially a really long array storing row after row of pixel data together.
+        mBuffer2 = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
         
         //Set the memory located at buffer ptr to black 0 to clear buffer, for all the width*height*4 (entire screen).
         //max possible is 255 (or 0xFF), as it's allocated as Uint32), which is white.
-        memset(mBuffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
-        
-        for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++) {
-            //Notes: Alpha doesn't seem to work. Red is first pair, Green is second pair, Blue is third pair.
-            mBuffer[i] = 0x00000000;
-        }
+        memset(mBuffer1, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+        memset(mBuffer2, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
         
         return true;
     }
     
     void Screen::update() {
-        SDL_UpdateTexture(mTexture, NULL, mBuffer, SCREEN_WIDTH * sizeof(Uint32)); //pitch (last argument) is size of 1 row of pixels
+        SDL_UpdateTexture(mTexture, NULL, mBuffer1, SCREEN_WIDTH * sizeof(Uint32)); //pitch (last argument) is size of 1 row of pixels
         SDL_RenderClear(mRenderer);
         SDL_RenderCopy(mRenderer, mTexture, NULL, NULL);
         SDL_RenderPresent(mRenderer);
@@ -78,7 +75,7 @@ namespace nian {
         color <<= 8;
         color += 0xFF; //FF is opaque for Alpha
         
-        mBuffer[(y * SCREEN_WIDTH) + x] = color;
+        mBuffer1[(y * SCREEN_WIDTH) + x] = color;
         //each row is SCREEN_WIDTH pixels long, times y to go down the right number of rows, + x to move the right number of columns
     }
     
@@ -92,12 +89,16 @@ namespace nian {
         return true;
     }
     
+    void Screen::boxBlur() {
+        
+    }
+    
     void Screen::clear() {
-        memset(mBuffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+        memset(mBuffer1, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
     }
     
     void Screen::close() {
-        delete [] mBuffer;
+        delete [] mBuffer1;
         SDL_DestroyTexture(mTexture);
         SDL_DestroyRenderer(mRenderer);
         SDL_DestroyWindow(mWindow);

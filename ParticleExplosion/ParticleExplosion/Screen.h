@@ -25,7 +25,8 @@ private:
     SDL_Window* mWindow;
     SDL_Renderer* mRenderer;
     SDL_Texture* mTexture;
-    Uint32* mBuffer;
+    Uint32* mBuffer1;
+    Uint32* mBuffer2;
     
 public:
     Screen(); //default constructor
@@ -33,6 +34,7 @@ public:
     void update();
     void setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue); //unsigned 8bit int is basically a char
     bool processEvents();
+    void boxBlur();
     void clear(); //clear the buffer of pixels
     void close(); //close down stuff we openend
 };
