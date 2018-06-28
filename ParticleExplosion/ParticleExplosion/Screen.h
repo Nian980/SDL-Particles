@@ -35,7 +35,7 @@ public:
     void setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue); //unsigned 8bit int is basically a char
     bool processEvents();
     void boxBlur();
-    void clear(); //clear the buffer of pixels
+//    void clear(); //clear the buffer of pixels
     void close(); //close down stuff we openend
 };
 

@@ -82,7 +82,7 @@ namespace nian {
     bool Screen::processEvents() {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) { //careful, capital SDL_QUIT
+            if (event.type == SDL_QUIT) { //if user clicks red close button
                 return false;
             }
         }
@@ -90,15 +90,56 @@ namespace nian {
     }
     
     void Screen::boxBlur() {
+        //Swap buffers. Pixel info is in b2, draw b1
+        Uint32* temp = mBuffer1;
+        mBuffer1 = mBuffer2;
+        mBuffer2 = temp;
         
+        for (int y = 0; y < SCREEN_HEIGHT; y++) {
+            for (int x = 0; x < SCREEN_WIDTH; x++) {
+                /* get pixels around P and average
+                 0 0 0
+                 0 P 0
+                 0 0 0
+                 */
+                int totalRed = 0;
+                int totalGreen = 0;
+                int totalBlue = 0;
+                
+                for (int row = -1; row <= 1; row++) {
+                    for (int col = -1; col <= 1; col++) {
+                        int currX = x + col; //start from top left corner for x and y
+                        int currY = y + row;
+                        
+                        if (currX >= 0 && currX < SCREEN_WIDTH && currY >= 0 && currY < SCREEN_HEIGHT) {
+                            Uint32 color = mBuffer2[currY * SCREEN_WIDTH + currX]; //get to the correct index in this buffer array
+                            Uint8 red = color >> 24;
+                            Uint8 green = color >> 16;
+                            Uint8 blue = color >> 8;
+                            
+                            totalRed += red;
+                            totalGreen += green;
+                            totalBlue += blue;
+                        }
+                    }
+                }
+                
+                Uint8 red = totalRed/9;
+                Uint8 green = totalGreen/9;
+                Uint8 blue = totalBlue/9;
+                
+                setPixel(x, y, red, green, blue);
+            }
+        }
     }
     
-    void Screen::clear() {
-        memset(mBuffer1, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
-    }
+//    void Screen::clear() {
+//        memset(mBuffer1, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+//    }
     
     void Screen::close() {
         delete [] mBuffer1;
+        delete [] mBuffer2;
         SDL_DestroyTexture(mTexture);
         SDL_DestroyRenderer(mRenderer);
         SDL_DestroyWindow(mWindow);
