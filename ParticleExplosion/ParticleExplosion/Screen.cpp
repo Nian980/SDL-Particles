@@ -95,7 +95,7 @@ namespace nian {
         mBuffer1 = mBuffer2;
         mBuffer2 = temp;
         
-        for (int y = 0; y < SCREEN_HEIGHT; y++) {
+        for (int y = 0; y < SCREEN_HEIGHT; y++) { //for each pixel, do the blurring by sampling the pixels around it
             for (int x = 0; x < SCREEN_WIDTH; x++) {
                 /* get pixels around P and average
                  0 0 0
@@ -112,19 +112,20 @@ namespace nian {
                         int currY = y + row;
                         
                         if (currX >= 0 && currX < SCREEN_WIDTH && currY >= 0 && currY < SCREEN_HEIGHT) {
+                            //if statement so don't go over the edge of the screen
                             Uint32 color = mBuffer2[currY * SCREEN_WIDTH + currX]; //get to the correct index in this buffer array
-                            Uint8 red = color >> 24;
+                            Uint8 red = color >> 24; //extract the RGB values using bitshift from that pixel
                             Uint8 green = color >> 16;
                             Uint8 blue = color >> 8;
                             
-                            totalRed += red;
+                            totalRed += red; //add each red to the totalRed for pixel P
                             totalGreen += green;
                             totalBlue += blue;
                         }
                     }
                 }
                 
-                Uint8 red = totalRed/9;
+                Uint8 red = totalRed/9; //average the red out for the pixel P
                 Uint8 green = totalGreen/9;
                 Uint8 blue = totalBlue/9;
                 
@@ -132,10 +133,6 @@ namespace nian {
             }
         }
     }
-    
-//    void Screen::clear() {
-//        memset(mBuffer1, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
-//    }
     
     void Screen::close() {
         delete [] mBuffer1;
