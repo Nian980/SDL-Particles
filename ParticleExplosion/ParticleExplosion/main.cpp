@@ -28,7 +28,6 @@ int main(int argc, const char * argv[]) {
         //Update and Draw particles
         int elapsedTicks = SDL_GetTicks(); //returns number of milliseconds since the program has started
         
-        screen.clear(); //clear the screen buffer, so after every loop the pixel doesn't stay there
         swarm.update(elapsedTicks);
         
         unsigned char red = (1 + sin(elapsedTicks * 0.001)) * 127.5;
