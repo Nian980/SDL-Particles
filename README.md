@@ -1,2 +1,2 @@
 # SDL-Particles
-Playing around with pixels and particles using SDL
+Playing around with creating particles using SDL and direct pixel access.
