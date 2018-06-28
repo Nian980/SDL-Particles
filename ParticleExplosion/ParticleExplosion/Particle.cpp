@@ -11,22 +11,21 @@
 
 namespace nian {
     
-    Particle::Particle() : mX(0), mY(0)
-    {
+    Particle::Particle() : mX(0), mY(0) {
         mDirection = (2 * M_PI * rand())/RAND_MAX; //double division
-        mSpeed = (0.001 * rand())/RAND_MAX;
+        mSpeed = (0.0001 * rand())/RAND_MAX;
     }
 
     Particle::~Particle() {
         
     }
     
-    void Particle::update() {
+    void Particle::update(int deltaTime) {
         double xSpeed = mSpeed * cos(mDirection);
         double ySpeed = mSpeed * sin(mDirection);
         
-        mX += xSpeed;
-        mY += ySpeed;
+        mX += xSpeed * deltaTime;
+        mY += ySpeed * deltaTime;
     }
     
 }

@@ -9,7 +9,7 @@
 #include "Swarm.h"
 
 namespace nian {
-    Swarm::Swarm() {
+    Swarm::Swarm() : prevElapsed(0) {
         mParticles = new Particle[NPARTICLES];
     }
     
@@ -17,9 +17,13 @@ namespace nian {
         delete [] mParticles;
     }
     
-    void Swarm::update() {
+    void Swarm::update(int elapsedTicks) {
+        int deltaTime = elapsedTicks - prevElapsed;
+        
         for (int i = 0; i < Swarm::NPARTICLES; i++) {
-            mParticles[i].update();
+            mParticles[i].update(deltaTime);
         }
+        
+        prevElapsed = elapsedTicks;
     }
 }

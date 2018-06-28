@@ -29,7 +29,7 @@ int main(int argc, const char * argv[]) {
         int elapsedTicks = SDL_GetTicks(); //returns number of milliseconds since the program has started
         
         screen.clear(); //clear the screen buffer, so after every loop the pixel doesn't stay there
-        swarm.update();
+        swarm.update(elapsedTicks);
         
         unsigned char red = (1 + sin(elapsedTicks * 0.001)) * 127.5;
         unsigned char green = (1 + sin(elapsedTicks * 0.002)) * 127.5; //turn double into unsigned char
@@ -44,7 +44,7 @@ int main(int argc, const char * argv[]) {
             //map each particle from 1 by 1 grid to screen space.
             //+1 to make it 0 to 2. Then multiply by half screen width to map to the screen.
             int x = (particle.mX + 1) * Screen::SCREEN_WIDTH/2; //x position of this particle.
-            int y = (particle.mY + 1) * Screen::SCREEN_HEIGHT/2;
+            int y = particle.mY * Screen::SCREEN_WIDTH/2 + Screen::SCREEN_HEIGHT/2; //centers y
             
             screen.setPixel(x, y, red, green, blue);
         }

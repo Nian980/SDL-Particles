@@ -25,7 +25,7 @@ struct Particle {
     Particle();
     ~Particle();
     
-    void update(); //update position of particle (and color as well?)
+    void update(int deltaTime); //update position of particle (and color as well?)
 };
     
 }

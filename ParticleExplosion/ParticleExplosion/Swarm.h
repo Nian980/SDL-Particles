@@ -19,13 +19,14 @@ public:
     
 private:
     Particle* mParticles;
+    int prevElapsed;
     
 public:
     Swarm();
     virtual ~Swarm();
     
     const Particle* const getParticles() { return mParticles; } //inline cuz small function
-    void update();
+    void update(int elapsedTicks);
 };
     
 }
