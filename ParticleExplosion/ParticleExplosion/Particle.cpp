@@ -23,7 +23,7 @@ namespace nian {
     }
     
     void Particle::update(int deltaTime) {
-        mDirection += deltaTime * 3;
+        mDirection += deltaTime * 0.001;
         
         double xSpeed = mSpeed * cos(mDirection);
         double ySpeed = mSpeed * sin(mDirection);
