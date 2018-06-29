@@ -13,7 +13,9 @@ namespace nian {
     
     Particle::Particle() : mX(0), mY(0) {
         mDirection = (2 * M_PI * rand())/RAND_MAX; //double division
-        mSpeed = (0.0001 * rand())/RAND_MAX;
+        mSpeed = (0.3 * rand())/RAND_MAX;
+        
+        mSpeed *= mSpeed; //square the speed
     }
 
     Particle::~Particle() {
