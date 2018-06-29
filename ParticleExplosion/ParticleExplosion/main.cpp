@@ -30,9 +30,9 @@ int main(int argc, const char * argv[]) {
         
         swarm.update(elapsedTicks);
         
-        unsigned char red = (1 + sin(elapsedTicks * 0.001)) * 127.5;
+        unsigned char red = (1 + cos(elapsedTicks * 0.001)) * 127.5;
         unsigned char green = (1 + sin(elapsedTicks * 0.002)) * 127.5; //turn double into unsigned char
-        unsigned char blue = (1 + sin(elapsedTicks * 0.003)) * 127.5;
+        unsigned char blue = (1 + cos(elapsedTicks * 0.003)) * 127.5;
         // *0.001 cuz the sin value jumps a lot. 1+ turns it to 0 to 2. *127.5 so you get between 0 and 255 ish
         
         const Particle* const pParticles = swarm.getParticles();

@@ -19,13 +19,14 @@ struct Particle {
     double mX;
     double mY;
     
+private:
     double mSpeed; //polar coordinates with magnitude and direction (angle)
     double mDirection;
+    void init();
     
+public:
     Particle();
     ~Particle();
-    
-    void Init();
     void update(int deltaTime); //update position of particle (and color as well?)
 };
     
